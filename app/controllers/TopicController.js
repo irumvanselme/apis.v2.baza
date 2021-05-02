@@ -1,7 +1,6 @@
-import Controller from "./Controller.js";
 import { Topic, validate } from "../models/Topic.js";
 
-class TopicController extends Controller {
+class TopicController {
     async get_all(req, res) {
         try {
             const topics = await Topic.find();
