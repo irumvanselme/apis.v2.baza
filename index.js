@@ -1,5 +1,4 @@
-import { config } from "dotenv";
-config();
+import "./app/config/database.js";
 
 import express from "express";
 
