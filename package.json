@@ -1,0 +1,8 @@
+{
+  "name": "baza-apis",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/irumvanselme/baza-v2.git",
+  "author": "irumva anselme <andesanselme@gmail.com>",
+  "license": "MIT"
+}
