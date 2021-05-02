@@ -1,5 +1,5 @@
 import Controller from "./Controller.js";
-import { Topic, validate } from "../Models/Topic.js";
+import { Topic, validate } from "../models/Topic.js";
 
 class TopicController extends Controller {
     async get_all(req, res) {
