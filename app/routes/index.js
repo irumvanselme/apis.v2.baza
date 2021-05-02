@@ -1,8 +1,7 @@
 import { Router } from "express";
+import topic_routes from "./Topic.js";
 
 const router = Router();
-
-import topic_routes from "./Topic.js";
 
 router.use("/topics", topic_routes);
 
