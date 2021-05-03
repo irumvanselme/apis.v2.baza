@@ -12,6 +12,10 @@ const questionSchema = new mongoose.Schema({
         type: String,
         minlength: 10,
     },
+    image: {
+        type: String,
+        minlength: 5,
+    },
     topic_ids: [getForegeinKey("Topic")],
     tag_ids: [getForegeinKey("Tag")],
     answers: [getForegeinKey("Answer")],
