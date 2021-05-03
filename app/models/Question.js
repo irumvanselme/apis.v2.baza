@@ -15,6 +15,7 @@ const questionSchema = new mongoose.Schema({
     topic_ids: [getForegeinKey("Topic")],
     tag_ids: [getForegeinKey("Tag")],
     answers: [getForegeinKey("Answer")],
+    actions: [getForegeinKey("Action")],
     perfect_answer_id: getForegeinKey("Answer"),
 });
 
