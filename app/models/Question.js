@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import Validator from "validatorjs";
+import { createForegeinKey } from "./../utils/db.js";
 
 const questionSchema = new mongoose.Schema({
     title: {
@@ -16,11 +17,11 @@ const questionSchema = new mongoose.Schema({
         type: String,
         minlength: 5,
     },
-    topic_ids: [getForegeinKey("Topic")],
-    tag_ids: [getForegeinKey("Tag")],
-    answers: [getForegeinKey("Answer")],
-    actions: [getForegeinKey("Action")],
-    perfect_answer_id: getForegeinKey("Answer"),
+    topic_ids: [createForegeinKey("Topic")],
+    tag_ids: [createForegeinKey("Tag")],
+    answers: [createForegeinKey("Answer")],
+    actions: [createForegeinKey("Action")],
+    perfect_answer_id: createForegeinKey("Answer", false),
 });
 
 const Question = mongoose.model("Question", questionSchema);
@@ -33,11 +34,5 @@ const validate = (data) => {
 
     return new Validator(data, rules);
 };
-
-const getForegeinKey = (model) => ({
-    type: mongoose.Schema.Types.ObjectId,
-    ref: model,
-    required: true,
-});
 
 export { Question, validate };
