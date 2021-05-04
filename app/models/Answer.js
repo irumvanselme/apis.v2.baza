@@ -5,7 +5,7 @@ import { createForegeinKey } from "../utils/db.js";
 const answerSchema = new mongoose.Schema({
     user_id: createForegeinKey("User"),
     body: { required: true, type: String, minlength: 10 },
-    image: { type: String, minlength: 10 },
+    image: { type: String, minlength: 5 },
 });
 
 const Answer = mongoose.model("Answer", answerSchema);
