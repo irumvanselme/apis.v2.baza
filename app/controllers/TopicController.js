@@ -24,16 +24,12 @@ class TopicController {
     async create(req, res) {
         try {
             const valid = validate(req.body);
-            if (valid.fails(undefined))
+
+            valid.fails(function () {
                 return res.status(400).send(valid.errors.all());
+            });
 
-            let topic = await Topic.findOne({ name: req.body.name });
-            if (topic)
-                return res
-                    .status(400)
-                    .send({ message: "Topic Already registered ..." });
-
-            topic = new Topic(req.body);
+            let topic = new Topic(req.body);
             let newTopic = await topic.save();
 
             if (newTopic) return res.send(newTopic);
@@ -50,10 +46,6 @@ class TopicController {
             const valid = validate(req.body);
             if (valid.fails(undefined))
                 return res.status(400).send(valid.errors.all());
-
-            const topic = await Topic.findById(req.params.id);
-            if (!topic)
-                return res.status(404).send({ message: "Topic not found" });
 
             const updatedTopic = await Topic.findByIdAndUpdate(
                 req.params.id,
