@@ -65,14 +65,6 @@ class TopicController {
 
     async delete(req, res) {
         try {
-            const valid = validate(req.body);
-            if (valid.fails(undefined))
-                return res.status(400).send(valid.errors.all());
-
-            const topic = await Topic.findById(req.params.id);
-            if (!topic)
-                return res.status(404).send({ message: "Topic not found" });
-
             const deletedTopic = await Topic.findByIdAndDelete(req.params.id);
             if (!deletedTopic)
                 return res
