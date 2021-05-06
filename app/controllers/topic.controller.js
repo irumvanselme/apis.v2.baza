@@ -1,8 +1,9 @@
-import { Topic, validate } from "../models/Topic.js";
+import { Topic, validate } from "../models/topic.model.js";
 
 class TopicController {
     async get_all(req, res) {
         try {
+            return res.send("Trying to get all topics");
             const topics = await Topic.find();
             return res.send(topics);
         } catch (e) {
