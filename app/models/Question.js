@@ -29,11 +29,11 @@ const Question = mongoose.model("Question", questionSchema);
 
 const validate = (data) => {
     const rules = {
-        title: "string|required|min:4",
+        title: "required|string|min:4",
         body: "string|min:10",
         image: "string|min:5",
         topic_ids: "array",
-        "topic_ids.*": "required|object_id|exists:Topic",
+        "topic_ids.*": "required|exists:Topic",
         tag_ids: "array",
         "tag_ids.*": "required|exists:Tag",
         answer_ids: "array",
