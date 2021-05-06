@@ -1,5 +1,5 @@
 import { Router } from "express";
-import topic_routes from "./Topic.js";
+import topic_routes from "./topic.routes.js";
 
 const router = Router();
 
