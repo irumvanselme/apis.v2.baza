@@ -40,7 +40,7 @@ const validate = (data) => {
         "answer_ids.*": "required|exists:Answer",
         action_ids: "array",
         "action_ids.*": "required|exists:Answer",
-        perfect_answer_id: "required|exists:Answer",
+        perfect_answer_id: "exists:Answer",
     };
 
     return new Validator(data, rules);
