@@ -37,6 +37,32 @@ class QuestionController {
             return res.status(500).send(e);
         }
     }
+
+    async update(req, res) {
+        try {
+            const valid = validate(req.body);
+            valid.fails(function () {
+                return res.status(400).send(valid.errors.all());
+            });
+
+            const question = await Question.findByIdAndUpdate(
+                req.params.id,
+                valid.input,
+                { new: true }
+            );
+            return res.send(question);
+        } catch (error) {
+            return res.status(500).send(error);
+        }
+    }
+
+    async delete(req, res) {
+        try {
+            return res.send(await Question.findByIdAndDelete(req.params.id));
+        } catch (error) {
+            return res.status(500).send(error);
+        }
+    }
 }
 
 export default new QuestionController();
