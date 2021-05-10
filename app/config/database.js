@@ -12,7 +12,7 @@ const connectToDb = async () => {
             useCreateIndex: true,
         });
     } catch (error) {
-        console.error(error);
+        console.error("Failed to connect to the database ... ");
         process.exit(1);
     }
 };
