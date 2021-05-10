@@ -20,7 +20,6 @@ const questionSchema = new mongoose.Schema({
     },
     topic_ids: [createForeignKey("Topic")],
     tag_ids: [createForeignKey("Tag")],
-    answer_ids: [createForeignKey("Answer")],
     action_ids: [createForeignKey("Action")],
     perfect_answer_id: createForeignKey("Answer", false),
 });

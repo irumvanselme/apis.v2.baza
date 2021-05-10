@@ -15,10 +15,13 @@ class AnswersController{
     async create(req, res){
         try{
             req.body.question_id = req.params.question;
+            req.body.user_id = req.user._id;
+            
             const valid = validate(req.body);
 
-            function passes(){
-                return res.send("It passed ")
+            async function passes(){
+                let answer = await (new Answer(req.body)).save();
+                return res.send(answer);
             }
 
             function fails(){
