@@ -8,11 +8,10 @@ Validator.registerAsync(
 
         let test = {};
         test[req] = username;
-        console.log(test);
 
         let data = await Model.findOne(test);
-        if (data) passes(false, `The  ${req} is already taken`);
-        else passes();
+        if (data) return passes(false, `The  ${req} is already taken`);
+        else return passes();
     }
 );
 
