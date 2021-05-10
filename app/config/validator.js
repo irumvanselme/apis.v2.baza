@@ -13,7 +13,7 @@ Validator.registerAsync(
         if (data) return passes(false, `The  ${req} is already taken`);
         else return passes();
     }
-);
+, "The :req is already taken ", null);
 
 Validator.registerAsync(
     "exists",
@@ -27,12 +27,12 @@ Validator.registerAsync(
         let data = await Model.findOne(test);
         if (!data) passes(false, `The  ${req} is not available`);
         else passes();
-    }
+    }, "The :req is not available ", null
 );
 
-Validator.register("object_id", function (value, requirement, attribute) {
+Validator.register("object_id", function (value) {
     return mongoose.Types.ObjectId.isValid(value);
-});
+}, "The value is not a valid object id", null);
 
 function formatAttribute(data) {
     if (data.includes("_id")) return "_id";
