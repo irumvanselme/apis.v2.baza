@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import Validator from "../config/validator.js";
-import { createForegeinKey } from "../utils/db.js";
+import { createForeignKey } from "../utils/db.js";
 
 const commentSchema = new mongoose.Schema({
-    user_id: createForegeinKey("User"),
+    user_id: createForeignKey("User"),
     body: { required: true, type: String, minlength: 10 },
 });
 

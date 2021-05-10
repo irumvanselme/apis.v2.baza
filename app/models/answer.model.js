@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import Validator from "../config/validator.js";
-import { createForegeinKey } from "../utils/db.js";
+import { createForeignKey } from "../utils/db.js";
 
 const answerSchema = new mongoose.Schema({
-    user_id: createForegeinKey("User"),
-    question_id: createForegeinKey("Question"),
+    user_id: createForeignKey("User"),
+    question_id: createForeignKey("Question"),
     body: { required: true, type: String, minlength: 10 },
     image: { type: String, minlength: 5 },
 });

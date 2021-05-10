@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const createForegeinKey = (model, required = true) => ({
+export const createForeignKey = (model, required = true) => ({
     type: mongoose.Schema.Types.ObjectId,
     ref: model,
     required: required,

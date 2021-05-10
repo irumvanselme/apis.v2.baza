@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import Validator from "../config/validator.js";
-import { createForegeinKey } from "../utils/db.js";
+import { createForeignKey } from "../utils/db.js";
 
 const questionSchema = new mongoose.Schema({
-    user_id: createForegeinKey("User"),
+    user_id: createForeignKey("User"),
     title: {
         required: true,
         type: String,
@@ -18,11 +18,11 @@ const questionSchema = new mongoose.Schema({
         type: String,
         minlength: 5,
     },
-    topic_ids: [createForegeinKey("Topic")],
-    tag_ids: [createForegeinKey("Tag")],
-    answer_ids: [createForegeinKey("Answer")],
-    action_ids: [createForegeinKey("Action")],
-    perfect_answer_id: createForegeinKey("Answer", false),
+    topic_ids: [createForeignKey("Topic")],
+    tag_ids: [createForeignKey("Tag")],
+    answer_ids: [createForeignKey("Answer")],
+    action_ids: [createForeignKey("Action")],
+    perfect_answer_id: createForeignKey("Answer", false),
 });
 
 const Question = mongoose.model("Question", questionSchema);
