@@ -13,9 +13,8 @@ const Answer = mongoose.model("Answer", answerSchema);
 
 const validate = (data) => {
     const rules = {
-        name: "string|required|min:4",
+        body: "required|string|min:4",
         question_id: "required|exists:Question",
-        description: "string|min:10",
         image: "string|url|min:5",
     };
 

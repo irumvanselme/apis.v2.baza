@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Validator from "../config/validator.js";
 import { createForeignKey } from "../utils/db.js";
+import {Answer} from "./answer.model.js";
 
 const questionSchema = new mongoose.Schema({
     user_id: createForeignKey("User"),
@@ -23,6 +24,10 @@ const questionSchema = new mongoose.Schema({
     action_ids: [createForeignKey("Action")],
     perfect_answer_id: createForeignKey("Answer", false),
 });
+
+questionSchema.methods.answers = function () {
+    return Answer.find({question_id: this._id});
+}
 
 const Question = mongoose.model("Question", questionSchema);
 
