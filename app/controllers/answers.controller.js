@@ -1,5 +1,5 @@
-import {Question} from "../models/question.model.js"
-import {Answer, validate} from "../models/answer.model.js";
+import { Question } from "../models/question.model.js"
+import { Answer, validate } from "../models/answer.model.js";
 
 class AnswersController {
     async get_all(req, res) {

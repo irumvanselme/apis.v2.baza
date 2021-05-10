@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Validator from "../config/validator.js";
 import { createForeignKey } from "../utils/db.js";
-import {Answer} from "./answer.model.js";
+import { Answer } from "./answer.model.js";
 
 const questionSchema = new mongoose.Schema({
     user_id: createForeignKey("User"),
