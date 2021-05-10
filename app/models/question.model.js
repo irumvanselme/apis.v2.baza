@@ -10,7 +10,6 @@ const questionSchema = new mongoose.Schema({
         minlength: 4,
     },
     body: {
-        required: true,
         type: String,
         minlength: 10,
     },
