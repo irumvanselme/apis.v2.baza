@@ -7,7 +7,7 @@
     },
     "type": "module",
     "repository": "https://github.com/irumvanselme/baza-v2.git",
-    "author": "irumva anselme <andesanselme@gmail.com>",
+    "author": "irumva anselme <andesanselme@gmail.com> and gervais ishimwe",
     "license": "MIT",
     "dependencies": {
         "bcrypt": "^5.0.1",
