@@ -13,7 +13,6 @@ class QuestionController {
     async create(req, res) {
         try {
             const valid = validate(req.body);
-            let response = {status: 0, body: null};
 
             async function passes() {
                 const question = await new Question({
