@@ -15,23 +15,13 @@ class QuestionController {
             const valid = validate(req.body);
             let response = {status: 0, body: null};
 
-            valid.fails(function () {
-                response = {
-                    status: 400,
-                    body: valid.errors.all()
-                };
-            });
-
             async function passes() {
                 const question = await new Question({
                     user_id: req.user._id,
                     ...valid.input,
                 }).save()
 
-                response = {
-                    status: 201,
-                    body: question
-                }
+                return res.send(question)
             }
 
             async function fails() {
@@ -39,9 +29,6 @@ class QuestionController {
             }
 
             valid.checkAsync(passes, fails)
-
-            if(response.status !== 0) return res.status(response.status).send(response.body)
-
         } catch (error) {
             return res.status(500).send(error);
         }
