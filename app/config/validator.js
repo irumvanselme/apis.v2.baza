@@ -10,7 +10,7 @@ Validator.registerAsync(
         test[req] = username;
 
         let data = await Model.findOne(test);
-        if (data) return passes(false, `The  ${req} is already taken`);
+        if (data) return passes(false, `The ${req} is already taken`);
         else return passes();
     }
     , "The :req is already taken ", null);

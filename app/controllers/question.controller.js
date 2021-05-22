@@ -17,11 +17,20 @@ class QuestionController {
                 return res.status(400).send(valid.errors.all());
             });
 
-            const question = await new Question({
-                user_id: req.user._id,
-                ...valid.input,
-            }).save();
-            return res.send(question);
+            async function passes() {
+                const question = await new Question({
+                    user_id: req.user._id,
+                    ...valid.input,
+                }).save();
+
+                return res.send(question)
+            }
+
+            async function fails() {
+                return res.send(valid.errors.all())
+            }
+
+            return valid.checkAsync(passes, fails)
         } catch (error) {
             return res.status(500).send(error);
         }

@@ -7,6 +7,7 @@ const questionSchema = new mongoose.Schema({
     user_id: createForeignKey("User"),
     title: {
         required: true,
+        unique: true,
         type: String,
         minlength: 4,
     },
