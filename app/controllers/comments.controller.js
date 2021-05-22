@@ -1,10 +1,10 @@
-import { Answer, validate } from "../models/answer.model.js";
+import { Comment, validate } from "../models/comment.model.js"
 
-class AnswersController {
+class CommentsController {
     async get_all(req, res) {
         try {
-            const answers = await Answer.find({question_id: req.params.question})
-            return res.send(answers)
+            let comments = await Comment.find({answer_id: req.params.answer})
+            return res.send(comments)
         } catch (e) {
             return res.status(500).send(e.message)
         }
@@ -12,14 +12,14 @@ class AnswersController {
 
     async create(req, res) {
         try {
-            req.body.question_id = req.params.question;
+            req.body.answer_id = req.params.answer;
             req.body.user_id = req.user._id;
 
             const valid = validate(req.body);
 
             async function passes() {
-                let answer = await (new Answer(req.body)).save();
-                return res.send(answer);
+                let comment = await (new Comment(req.body)).save();
+                return res.send(comment);
             }
 
             function fails() {
@@ -34,10 +34,10 @@ class AnswersController {
 
     async show(req, res) {
         try {
-            const answer = await Answer.findById(req.params.id);
-            if (!answer)
+            const comment = await Comment.findById(req.params.id);
+            if (!comment)
                 return res.status(404).send({message: "Answer not found"});
-            return res.send(answer);
+            return res.send(comment);
         } catch (e) {
             return res.status(500).send(e);
         }
@@ -50,8 +50,8 @@ class AnswersController {
             const valid = validate(req.body);
 
             async function passes() {
-                let answer = await Answer.findByIdAndUpdate(req.params.id, req.body, { new: true });
-                return res.send(answer);
+                let comment = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true });
+                return res.send(comment);
             }
 
             function fails() {
@@ -66,16 +66,16 @@ class AnswersController {
 
     async delete(req, res) {
         try {
-            const deletedAnswer = await Answer.findByIdAndDelete(req.params.id);
-            if (!deletedAnswer)
+            const deletedComment = await Comment.findByIdAndDelete(req.params.id);
+            if (!deletedComment)
                 return res
                     .status(500)
                     .send({message: "Failed to delete the topi "});
-            return res.send(deletedAnswer);
+            return res.send(deletedComment);
         } catch (e) {
             return res.status(500).send(e);
         }
     }
 }
 
-export default new AnswersController();
+export default new CommentsController();
