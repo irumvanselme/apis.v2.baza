@@ -1,4 +1,4 @@
-import { Question, validate } from "../models/question.model.js";
+import {Question, validate} from "../models/question.model.js";
 
 class QuestionController {
     async get_all(req, res) {
@@ -13,24 +13,35 @@ class QuestionController {
     async create(req, res) {
         try {
             const valid = validate(req.body);
+            let response = {status: 0, body: null};
+
             valid.fails(function () {
-                return res.status(400).send(valid.errors.all());
+                response = {
+                    status: 400,
+                    body: valid.errors.all()
+                };
             });
 
             async function passes() {
                 const question = await new Question({
                     user_id: req.user._id,
                     ...valid.input,
-                }).save();
+                }).save()
 
-                return res.send(question)
+                response = {
+                    status: 201,
+                    body: question
+                }
             }
 
             async function fails() {
                 return res.send(valid.errors.all())
             }
 
-            return valid.checkAsync(passes, fails)
+            valid.checkAsync(passes, fails)
+
+            if(response.status !== 0) return res.status(response.status).send(response.body)
+
         } catch (error) {
             return res.status(500).send(error);
         }

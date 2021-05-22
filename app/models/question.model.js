@@ -35,7 +35,7 @@ const validate = (data) => {
     const rules = {
         title: "required|string|min:4|unique:Question",
         body: "string|min:10",
-        image: "string|min:5",
+        image: "string|url",
         topic_ids: "array",
         "topic_ids.*": "required|exists:Topic",
         tag_ids: "array",
