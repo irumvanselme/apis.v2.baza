@@ -15,7 +15,7 @@ const validate = (data) => {
     const rules = {
         body: "required|string|min:4",
         question_id: "required|exists:Question",
-        image: "string|url|min:5",
+        image: "string|url",
     };
 
     return new Validator(data, rules);

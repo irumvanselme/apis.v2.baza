@@ -28,7 +28,7 @@ class AnswersController {
                 return res.send(valid.errors.all())
             }
 
-            return valid.checkAsync(passes, fails)
+            valid.checkAsync(passes, fails)
         } catch (e) {
             return res.status(500).send(e.message)
         }
