@@ -10,6 +10,15 @@ class QuestionController {
         }
     }
 
+    async feed(req, res){
+        try {
+            const questions = await Question.find();
+            return res.send(questions);
+        } catch (e) {
+            return res.status(500).send(e);
+        }
+    }
+
     async create(req, res) {
         try {
             const valid = validate(req.body);
