@@ -3,36 +3,30 @@ import Validator from "validatorjs";
 
 Validator.registerAsync(
     "unique",
-    async function (username, attribute, req, passes) {
+    async function (input, attribute, req, passes) {
         const Model = mongoose.model(attribute);
 
-        let test = {};
-        test[req] = username;
-
-        let data = await Model.findOne(test);
+        let data = await Model.findOne({[req]: input});
         if (data) return passes(false, `The ${req} is already taken`);
         else return passes();
     }
-    , "The :req is already taken ", null);
+    , "The :req is already taken ");
 
 Validator.registerAsync(
     "exists",
     async function (value, attribute, req, passes) {
         const Model = mongoose.model(attribute);
 
-        let test = {};
-        test[formatAttribute(req)] = value;
-
-        let data = await Model.findOne(test);
+        let data = await Model.findOne({[formatAttribute(req)]: value});
         if (!data) passes(false, `The  ${req} is not available`);
         else passes();
-    }, "The :req is not available ", null);
+    }, "The :req is not available ");
 
 Validator.register("object_id", function (value) {
-    return mongoose.Types.ObjectId.isValid(value);
-}, "The value is not a valid object id", null);
+    return mongoose.Types.ObjectId.isValid(value as string);
+}, "The value is not a valid object id");
 
-function formatAttribute(data) {
+function formatAttribute(data: string) {
     if (data.includes("_id")) return "_id";
     else return data;
 }

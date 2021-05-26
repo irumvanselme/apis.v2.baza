@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import {createForeignKey} from "../utils/db.js";
+import { createForeignKey } from "../utils/db.js";
 
 const questionActionSchema = new mongoose.Schema({
     user: createForeignKey("User"),

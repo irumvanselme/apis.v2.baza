@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
-import Validator from "../config/validator.js";
-import { createForeignKey } from "../utils/db.js";
-import { Answer } from "./answer.model.js";
+import Validator from "../config/validator";
+import {createForeignKey} from "../utils/db";
+import {Answer} from "./answer.model";
+import {Question} from "../interfaces/question";
 
 const questionSchema = new mongoose.Schema({
     user_id: createForeignKey("User"),
@@ -31,7 +32,7 @@ questionSchema.methods.answers = function () {
 
 const Question = mongoose.model("Question", questionSchema);
 
-const validate = (data) => {
+const validate = (data: Question) => {
     const rules = {
         title: "required|string|min:4|unique:Question",
         body: "string|min:10",
@@ -50,4 +51,4 @@ const validate = (data) => {
     return new Validator(data, rules);
 };
 
-export { Question, validate };
+export {Question, validate};

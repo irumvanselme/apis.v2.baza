@@ -1,7 +1,8 @@
 import { Answer, validate } from "../models/answer.model.js";
+import express from "express";
 
 class AnswersController {
-    async get_all(req, res) {
+    async get_all(req: express.Request, res: express.Response) {
         try {
             const answers = await Answer.find({question_id: req.params.question})
             return res.send(answers)
@@ -10,7 +11,7 @@ class AnswersController {
         }
     }
 
-    async create(req, res) {
+    async create(req: express.Request, res: express.Response) {
         try {
             req.body.question_id = req.params.question;
             req.body.user_id = req.user._id;
@@ -32,7 +33,7 @@ class AnswersController {
         }
     }
 
-    async show(req, res) {
+    async show(req: express.Request, res: express.Response) {
         try {
             const answer = await Answer.findById(req.params.id);
             if (!answer)
@@ -43,7 +44,7 @@ class AnswersController {
         }
     }
 
-    async update(req, res) {
+    async update(req: express.Request, res: express.Response) {
         try {
             req.body.user_id = req.user._id;
 
@@ -64,7 +65,7 @@ class AnswersController {
         }
     }
 
-    async delete(req, res) {
+    async delete(req: express.Request, res: express.Response) {
         try {
             const deletedAnswer = await Answer.findByIdAndDelete(req.params.id);
             if (!deletedAnswer)

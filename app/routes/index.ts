@@ -1,8 +1,8 @@
-import { Router } from "express";
+import {Router} from "express";
 import topic_routes from "./topic.routes.js";
-import question_routes from "./question.routes.js";
-import answers_routes from "./answers.routes.js";
-import comments_routes from "./comments.routes.js";
+import question_routes from "./question.routes";
+import answers_routes from "./answers.routes";
+import comments_routes from "./comments.routes";
 
 const router = Router();
 

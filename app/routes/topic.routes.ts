@@ -1,5 +1,5 @@
-import { Router } from "express";
-import TopicController from "../controllers/topic.controller.js";
+import {Router} from "express";
+import TopicController from "../controllers/topic.controller";
 
 const router = Router();
 

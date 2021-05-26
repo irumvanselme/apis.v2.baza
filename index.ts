@@ -3,7 +3,7 @@ import "./app/config/database.js";
 import express from "express";
 import path from "path"
 
-import routes from "./app/routes/index.js";
+import routes from "./app/routes";
 
 const app = express();
 app.use(express.json());
@@ -13,7 +13,7 @@ app.get("/", (req, res) =>
     res.sendFile(path.join(path.resolve(), "app/views/index.html"))
 );
 
-app.use("/api", routes);
+app.all("/api").use(routes)
 
 app.listen(process.env.PORT, () =>
     console.log(

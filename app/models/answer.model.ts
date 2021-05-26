@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
-import Validator from "../config/validator.js";
+import Validator from "../config/validator";
 import { createForeignKey } from "../utils/db.js";
+import { Answer } from "../interfaces/answer";
 
 const answerSchema = new mongoose.Schema({
     user_id: createForeignKey("User"),
@@ -11,7 +12,7 @@ const answerSchema = new mongoose.Schema({
 
 const Answer = mongoose.model("Answer", answerSchema);
 
-const validate = (data) => {
+const validate = (data: Answer) => {
     const rules = {
         body: "required|string|min:4",
         question_id: "required|exists:Question",

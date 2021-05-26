@@ -1,7 +1,8 @@
 import { Comment, validate } from "../models/comment.model.js"
+import express from "express";
 
 class CommentsController {
-    async get_all(req, res) {
+    async get_all(req: express.Request, res: express.Response) {
         try {
             let comments = await Comment.find({answer_id: req.params.answer})
             return res.send(comments)
@@ -10,7 +11,7 @@ class CommentsController {
         }
     }
 
-    async create(req, res) {
+    async create(req: express.Request, res: express.Response) {
         try {
             req.body.answer_id = req.params.answer;
             req.body.user_id = req.user._id;
@@ -32,7 +33,7 @@ class CommentsController {
         }
     }
 
-    async show(req, res) {
+    async show(req: express.Request, res: express.Response) {
         try {
             const comment = await Comment.findById(req.params.id);
             if (!comment)
@@ -43,7 +44,7 @@ class CommentsController {
         }
     }
 
-    async update(req, res) {
+    async update(req: express.Request, res: express.Response) {
         try {
             req.body.user_id = req.user._id;
 
@@ -64,7 +65,7 @@ class CommentsController {
         }
     }
 
-    async delete(req, res) {
+    async delete(req: express.Request, res: express.Response) {
         try {
             const deletedComment = await Comment.findByIdAndDelete(req.params.id);
             if (!deletedComment)

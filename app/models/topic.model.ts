@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-import Validator from "../config/validator.js";
+import Validator from "../config/validator";
+import {Topic} from "../interfaces/topic";
 
 const topicSchema = new mongoose.Schema({
     name: { required: true, type: String, minlength: 4 },
@@ -8,7 +9,7 @@ const topicSchema = new mongoose.Schema({
 
 const Topic = mongoose.model("Topic", topicSchema);
 
-const validate = (data) => {
+const validate = (data: Topic) => {
     const rules = {
         name: "string|required|min:4|exists:Topic",
         description: "string|min:10",

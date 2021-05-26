@@ -1,7 +1,8 @@
 import {Question, validate} from "../models/question.model.js";
+import express from "express";
 
 class QuestionController {
-    async get_all(req, res) {
+    async get_all(req: express.Request, res: express.Response) {
         try {
             const questions = await Question.find();
             return res.send(questions);
@@ -10,7 +11,7 @@ class QuestionController {
         }
     }
 
-    async feed(req, res){
+    async feed(req: express.Request, res: express.Response){
         try {
             const questions = await Question.find();
             return res.send(questions);
@@ -19,7 +20,7 @@ class QuestionController {
         }
     }
 
-    async create(req, res) {
+    async create(req: express.Request, res: express.Response) {
         try {
             const valid = validate(req.body);
 
@@ -42,7 +43,7 @@ class QuestionController {
         }
     }
 
-    async get_one(req, res) {
+    async get_one(req: express.Request, res: express.Response) {
         try {
             const question = await Question.findById(req.params.id);
             if (!question)
@@ -53,7 +54,7 @@ class QuestionController {
         }
     }
 
-    async update(req, res) {
+    async update(req: express.Request, res: express.Response) {
         try {
             const valid = validate(req.body);
             valid.fails(function () {
@@ -71,7 +72,7 @@ class QuestionController {
         }
     }
 
-    async delete(req, res) {
+    async delete(req: express.Request, res: express.Response) {
         try {
             return res.send(await Question.findByIdAndDelete(req.params.id));
         } catch (error) {

@@ -1,16 +1,17 @@
 import mongoose from "mongoose";
-import Validator from "../config/validator.js";
-import { createForeignKey } from "../utils/db.js";
+import Validator from "../config/validator";
+import {createForeignKey} from "../utils/db";
+import {Comment} from "../interfaces/comment";
 
 const commentSchema = new mongoose.Schema({
     user_id: createForeignKey("User"),
     answer_id: createForeignKey("Answer"),
-    body: { required: true, type: String, minlength: 10 },
+    body: {required: true, type: String, minlength: 10},
 });
 
 const Comment = mongoose.model("Comment", commentSchema);
 
-const validate = (data) => {
+const validate = (data: Comment) => {
     const rules = {
         answer_id: "required|exists:Answer",
         body: "required|string|min:10",
@@ -19,4 +20,4 @@ const validate = (data) => {
     return new Validator(data, rules);
 };
 
-export { Comment, validate };
+export {Comment, validate};
