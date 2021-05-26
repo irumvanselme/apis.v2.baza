@@ -1,16 +1,17 @@
 import mongoose from "mongoose";
 import Validator from "../config/validator.js";
-import { createForegeinKey } from "../utils/db.js";
+import { createForeignKey } from "../utils/db.js";
+import { Answer } from "./answer.model.js";
 
 const questionSchema = new mongoose.Schema({
-    user_id: createForegeinKey("User"),
+    user_id: createForeignKey("User"),
     title: {
         required: true,
+        unique: true,
         type: String,
         minlength: 4,
     },
     body: {
-        required: true,
         type: String,
         minlength: 10,
     },
@@ -18,20 +19,23 @@ const questionSchema = new mongoose.Schema({
         type: String,
         minlength: 5,
     },
-    topic_ids: [createForegeinKey("Topic")],
-    tag_ids: [createForegeinKey("Tag")],
-    answer_ids: [createForegeinKey("Answer")],
-    action_ids: [createForegeinKey("Action")],
-    perfect_answer_id: createForegeinKey("Answer", false),
+    topic_ids: [createForeignKey("Topic")],
+    tag_ids: [createForeignKey("Tag")],
+    action_ids: [createForeignKey("Action")],
+    perfect_answer_id: createForeignKey("Answer", false),
 });
+
+questionSchema.methods.answers = function () {
+    return Answer.find({question_id: this._id});
+}
 
 const Question = mongoose.model("Question", questionSchema);
 
 const validate = (data) => {
     const rules = {
-        title: "required|string|min:4",
+        title: "required|string|min:4|unique:Question",
         body: "string|min:10",
-        image: "string|min:5",
+        image: "string|url",
         topic_ids: "array",
         "topic_ids.*": "required|exists:Topic",
         tag_ids: "array",

@@ -5,14 +5,14 @@ import mongoose from "mongoose";
 
 const connectToDb = async () => {
     try {
-        mongoose.connect(process.env.DB_URL, {
+        await mongoose.connect(process.env.DB_URL, {
             useUnifiedTopology: true,
             useNewUrlParser: true,
             useFindAndModify: false,
             useCreateIndex: true,
         });
     } catch (error) {
-        console.error(error);
+        console.error("Failed to connect to the database ... ");
         process.exit(1);
     }
 };
