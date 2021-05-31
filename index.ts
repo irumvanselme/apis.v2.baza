@@ -24,7 +24,7 @@ app.get("/", (req: express.Request, res: express.Response) => {
     res.sendFile(join(resolve(), "app/views/index.html"))
 });
 
-app.all("/api").use(routes)
+app.use("/api", routes)
 
 app.listen(process.env.PORT, () =>
     console.log(
