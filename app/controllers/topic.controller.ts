@@ -1,8 +1,8 @@
 import { Topic, validate } from "../models/topic.model.js";
-import express from "express";
+import { Request, Response } from "express";
 
 class TopicController {
-    async get_all(req: express.Request, res: express.Response) {
+    async get_all(req: Request, res: Response) {
         try {
             const topics = await Topic.find();
             return res.send(topics);
@@ -11,7 +11,7 @@ class TopicController {
         }
     }
 
-    async get_one(req: express.Request, res: express.Response) {
+    async get_one(req: Request, res: Response) {
         try {
             const topic = await Topic.findById(req.params.id);
             if (!topic)
@@ -22,7 +22,7 @@ class TopicController {
         }
     }
 
-    async create(req: express.Request, res: express.Response) {
+    async create(req: Request, res: Response) {
         try {
             const valid = validate(req.body);
 
@@ -42,7 +42,7 @@ class TopicController {
         }
     }
 
-    async edit(req: express.Request, res: express.Response) {
+    async edit(req: Request, res: Response) {
         try {
             const valid = validate(req.body);
             if (valid.fails(undefined))
@@ -63,7 +63,7 @@ class TopicController {
         }
     }
 
-    async delete(req: express.Request, res: express.Response) {
+    async delete(req: Request, res: Response) {
         try {
             const deletedTopic = await Topic.findByIdAndDelete(req.params.id);
             if (!deletedTopic)

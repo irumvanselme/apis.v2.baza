@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
+import { Types } from "mongoose";
 
 export interface Topic {
-    _id?: mongoose.Types.ObjectId,
+    _id?: Types.ObjectId,
     name: string,
     description: string
 }

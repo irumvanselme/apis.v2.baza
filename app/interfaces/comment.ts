@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import { Types } from "mongoose";
 
 export interface Comment {
-    _id?: mongoose.Types.ObjectId
+    _id?: Types.ObjectId
     body: string,
-    user_id?: mongoose.Types.ObjectId
-    question_id: mongoose.Types.ObjectId,
+    user_id?: Types.ObjectId
+    question_id: Types.ObjectId,
 }

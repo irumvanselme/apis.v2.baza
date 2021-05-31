@@ -1,8 +1,9 @@
 import {Question, validate} from "../models/question.model.js";
-import express from "express";
+import { Request, Response } from "express";
+import { RequestWithUser } from "../interfaces/requests/RequestWithUser";
 
 class QuestionController {
-    async get_all(req: express.Request, res: express.Response) {
+    async get_all(req: Request, res: Response) {
         try {
             const questions = await Question.find();
             return res.send(questions);
@@ -11,7 +12,7 @@ class QuestionController {
         }
     }
 
-    async feed(req: express.Request, res: express.Response){
+    async feed(req: Request, res: Response){
         try {
             const questions = await Question.find();
             return res.send(questions);
@@ -20,11 +21,11 @@ class QuestionController {
         }
     }
 
-    async create(req: express.Request, res: express.Response) {
+    async create(req: RequestWithUser, res: Response) {
         try {
             const valid = validate(req.body);
 
-            async function passes() {
+            const passes = async function () {
                 const question = await new Question({
                     user_id: req.user._id,
                     ...valid.input,
@@ -33,7 +34,7 @@ class QuestionController {
                 return res.send(question)
             }
 
-            async function fails() {
+            const fails = function () {
                 return res.send(valid.errors.all())
             }
 
@@ -43,7 +44,7 @@ class QuestionController {
         }
     }
 
-    async get_one(req: express.Request, res: express.Response) {
+    async get_one(req: Request, res: Response) {
         try {
             const question = await Question.findById(req.params.id);
             if (!question)
@@ -54,7 +55,7 @@ class QuestionController {
         }
     }
 
-    async update(req: express.Request, res: express.Response) {
+    async update(req: Request, res: Response) {
         try {
             const valid = validate(req.body);
             valid.fails(function () {
@@ -72,7 +73,7 @@ class QuestionController {
         }
     }
 
-    async delete(req: express.Request, res: express.Response) {
+    async delete(req: Request, res: Response) {
         try {
             return res.send(await Question.findByIdAndDelete(req.params.id));
         } catch (error) {

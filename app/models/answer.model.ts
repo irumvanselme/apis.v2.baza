@@ -1,16 +1,16 @@
-import mongoose from "mongoose";
+import { Schema, model} from "mongoose";
 import Validator from "../config/validator";
-import { createForeignKey } from "../utils/db.js";
+import { createForeignKey } from "../utils/db";
 import { Answer } from "../interfaces/answer";
 
-const answerSchema = new mongoose.Schema({
+const answerSchema = new Schema({
     user_id: createForeignKey("User"),
     question_id: createForeignKey("Question"),
     body: { required: true, type: String, minlength: 10 },
     image: { type: String, minlength: 5 },
 });
 
-const Answer = mongoose.model("Answer", answerSchema);
+const Answer = model("Answer", answerSchema);
 
 const validate = (data: Answer) => {
     const rules = {

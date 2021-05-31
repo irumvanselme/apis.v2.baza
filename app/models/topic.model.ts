@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 import Validator from "../config/validator";
-import {Topic} from "../interfaces/topic";
+import { Topic } from "../interfaces/topic";
 
-const topicSchema = new mongoose.Schema({
+const topicSchema = new Schema({
     name: { required: true, type: String, minlength: 4 },
     description: { type: String, minlength: 10 },
 });
 
-const Topic = mongoose.model("Topic", topicSchema);
+const Topic = model("Topic", topicSchema);
 
 const validate = (data: Topic) => {
     const rules = {

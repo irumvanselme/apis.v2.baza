@@ -1,16 +1,18 @@
-import "./app/config/database.js";
+import "./src/config/database.js";
 
-import express from "express";
-import path from "path"
+import express, { Application, Response, Request} from "express";
 
-import routes from "./app/routes";
+import { join, resolve } from "path"
 
-const app = express();
+import routes from "./src/routes";
+
+const app: Application = express();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) =>
-    res.sendFile(path.join(path.resolve(), "app/views/index.html"))
+app.get("/", (req: Request, res: Response) =>
+    res.sendFile(join(resolve(), "src/views/index.html"))
 );
 
 app.all("/api").use(routes)

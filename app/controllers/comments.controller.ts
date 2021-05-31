@@ -1,29 +1,30 @@
 import { Comment, validate } from "../models/comment.model.js"
-import express from "express";
+import { Request, Response } from "express";
+import { RequestWithUser } from "../interfaces/requests/RequestWithUser";
 
 class CommentsController {
-    async get_all(req: express.Request, res: express.Response) {
+    async get_all(req: Request, res: Response) {
         try {
-            let comments = await Comment.find({answer_id: req.params.answer})
+            let comments = await Comment.find({ answer_id: req.params.answer })
             return res.send(comments)
         } catch (e) {
             return res.status(500).send(e.message)
         }
     }
 
-    async create(req: express.Request, res: express.Response) {
+    async create(req: RequestWithUser, res: Response) {
         try {
             req.body.answer_id = req.params.answer;
             req.body.user_id = req.user._id;
 
             const valid = validate(req.body);
 
-            async function passes() {
+            const passes = async function() {
                 let comment = await (new Comment(req.body)).save();
                 return res.send(comment);
             }
 
-            function fails() {
+            const fails = function () {
                 return res.send(valid.errors.all())
             }
 
@@ -33,7 +34,7 @@ class CommentsController {
         }
     }
 
-    async show(req: express.Request, res: express.Response) {
+    async show(req: Request, res: Response) {
         try {
             const comment = await Comment.findById(req.params.id);
             if (!comment)
@@ -44,18 +45,18 @@ class CommentsController {
         }
     }
 
-    async update(req: express.Request, res: express.Response) {
+    async update(req: RequestWithUser, res: Response) {
         try {
             req.body.user_id = req.user._id;
 
             const valid = validate(req.body);
 
-            async function passes() {
+            const passes = async function () {
                 let comment = await Comment.findByIdAndUpdate(req.params.id, req.body, { new: true });
                 return res.send(comment);
             }
 
-            function fails() {
+            const fails = function () {
                 return res.send(valid.errors.all())
             }
 
@@ -65,7 +66,7 @@ class CommentsController {
         }
     }
 
-    async delete(req: express.Request, res: express.Response) {
+    async delete(req: Request, res: Response) {
         try {
             const deletedComment = await Comment.findByIdAndDelete(req.params.id);
             if (!deletedComment)

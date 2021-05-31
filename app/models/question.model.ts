@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import { Schema, model } from "mongoose";
 import Validator from "../config/validator";
-import {createForeignKey} from "../utils/db";
-import {Answer} from "./answer.model";
-import {Question} from "../interfaces/question";
+import { createForeignKey } from "../utils/db";
+import { Answer } from "./answer.model";
+import { Question } from "../interfaces/question";
 
-const questionSchema = new mongoose.Schema({
+const questionSchema = new Schema({
     user_id: createForeignKey("User"),
     title: {
         required: true,
@@ -30,7 +30,7 @@ questionSchema.methods.answers = function () {
     return Answer.find({question_id: this._id});
 }
 
-const Question = mongoose.model("Question", questionSchema);
+const Question = model("Question", questionSchema);
 
 const validate = (data: Question) => {
     const rules = {

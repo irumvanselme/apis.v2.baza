@@ -1,8 +1,9 @@
 import { Answer, validate } from "../models/answer.model.js";
-import express from "express";
+import { Request, Response } from "express";
+import { RequestWithUser } from "../interfaces/requests/RequestWithUser";
 
 class AnswersController {
-    async get_all(req: express.Request, res: express.Response) {
+    async get_all(req: Request, res: Response) {
         try {
             const answers = await Answer.find({question_id: req.params.question})
             return res.send(answers)
@@ -11,19 +12,19 @@ class AnswersController {
         }
     }
 
-    async create(req: express.Request, res: express.Response) {
+    async create(req: RequestWithUser, res: Response) {
         try {
             req.body.question_id = req.params.question;
             req.body.user_id = req.user._id;
 
             const valid = validate(req.body);
 
-            async function passes() {
+            const passes = async function () {
                 let answer = await (new Answer(req.body)).save();
                 return res.send(answer);
             }
 
-            function fails() {
+            const fails = function () {
                 return res.send(valid.errors.all())
             }
 
@@ -33,7 +34,7 @@ class AnswersController {
         }
     }
 
-    async show(req: express.Request, res: express.Response) {
+    async show(req: Request, res: Response) {
         try {
             const answer = await Answer.findById(req.params.id);
             if (!answer)
@@ -44,18 +45,18 @@ class AnswersController {
         }
     }
 
-    async update(req: express.Request, res: express.Response) {
+    async update(req: RequestWithUser, res: Response) {
         try {
             req.body.user_id = req.user._id;
 
             const valid = validate(req.body);
 
-            async function passes() {
+            const passes = async function (){
                 let answer = await Answer.findByIdAndUpdate(req.params.id, req.body, { new: true });
                 return res.send(answer);
             }
 
-            function fails() {
+            const fails = function(){
                 return res.send(valid.errors.all())
             }
 
@@ -65,7 +66,7 @@ class AnswersController {
         }
     }
 
-    async delete(req: express.Request, res: express.Response) {
+    async delete(req: Request, res: Response) {
         try {
             const deletedAnswer = await Answer.findByIdAndDelete(req.params.id);
             if (!deletedAnswer)

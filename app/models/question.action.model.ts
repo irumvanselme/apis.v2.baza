@@ -1,7 +1,7 @@
-import mongoose from "mongoose"
-import {createForeignKey} from "../utils/db.js";
+import { model, Schema } from "mongoose"
+import { createForeignKey } from "../utils/db";
 
-const questionActionSchema = new mongoose.Schema({
+const questionActionSchema = new Schema({
     user: createForeignKey("User"),
     question: createForeignKey("Question"),
     action_type: {
@@ -11,7 +11,7 @@ const questionActionSchema = new mongoose.Schema({
     }
 });
 
-const Action = mongoose.model("QuestionAction", questionActionSchema);
+const Action = model("QuestionAction", questionActionSchema);
 
 export {
     Action

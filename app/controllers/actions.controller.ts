@@ -1,12 +1,13 @@
-import {Question} from "../models/question.model.js";
-import {Action as QuestionAction} from "../models/question.action.model.js";
-import {Action as AnswerAction} from "../models/answer.action.model.js";
-import {createMessage} from "../utils/functions.js";
-import {Answer} from "../models/answer.model.js";
-import express from "express";
+import { Question } from "../models/question.model.js";
+import { Action as QuestionAction } from "../models/question.action.model.js";
+import { Action as AnswerAction } from "../models/answer.action.model.js";
+import { createMessage } from "../utils/functions.js";
+import { Answer } from "../models/answer.model.js";
+import { Response } from "express";
+import { RequestWithUser } from "../interfaces/requests/RequestWithUser";
 
 class ActionsController {
-    async handle_question_action(req: express.Request, res: express.Response) {
+    async handle_question_action(req: RequestWithUser, res: Response) {
         try {
             const question = await Question.findById(req.params.id)
             if (question) {
@@ -23,12 +24,12 @@ class ActionsController {
                     return res.status(200).send(createMessage("Success", "Successfully " + req.params.action, body))
                 }
             } else return res.status(404).send({message: "Question not found"})
-        } catch (e: ErrorEvent) {
-            return res.status(500).send(error);
+        } catch (e) {
+            return res.status(500).send(e);
         }
     }
 
-    async handle_answer_action(req: express.Request, res: express.Response) {
+    async handle_answer_action(req: RequestWithUser, res: Response) {
         try {
             const answer = await Answer.findById(req.params.id)
             if (answer) {
@@ -46,7 +47,7 @@ class ActionsController {
                 }
             } else return res.status(404).send({message: "Answer not found"})
         } catch (e) {
-            return res.status(500).send(error);
+            return res.status(500).send(e);
         }
     }
 }

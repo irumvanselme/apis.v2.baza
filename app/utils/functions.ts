@@ -5,6 +5,6 @@
  *
  * @return Object well formatted response message
  * */
-export function createMessage(status: string ,message: string, body: string){
+export function createMessage(status: string ,message: string, body: any){
     return { status, message, body }
 }
