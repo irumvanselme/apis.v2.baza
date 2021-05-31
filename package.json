@@ -3,7 +3,9 @@
     "version": "1.0.0",
     "main": "index.ts",
     "scripts": {
-        "dev": "ts-node-dev index.ts --quiet"
+        "dev": "ts-node-dev index.ts --quiet",
+        "build": "tsc",
+        "start": "node .out/index.js"
     },
     "type": "commonjs",
     "repository": "https://github.com/irumvanselme/baza-v2.git",
