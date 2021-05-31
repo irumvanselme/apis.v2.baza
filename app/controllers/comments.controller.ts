@@ -1,4 +1,4 @@
-import { Comment, validate } from "../models/comment.model.js"
+import { Comment, validate } from "../models/comment.model"
 import { Request, Response } from "express";
 import { RequestWithUser } from "../interfaces/requests/RequestWithUser";
 

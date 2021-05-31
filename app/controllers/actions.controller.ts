@@ -1,8 +1,8 @@
-import { Question } from "../models/question.model.js";
-import { Action as QuestionAction } from "../models/question.action.model.js";
-import { Action as AnswerAction } from "../models/answer.action.model.js";
-import { createMessage } from "../utils/functions.js";
-import { Answer } from "../models/answer.model.js";
+import { Question } from "../models/question.model";
+import { Action as QuestionAction } from "../models/question.action.model";
+import { Action as AnswerAction } from "../models/answer.action.model";
+import { createMessage } from "../utils/functions";
+import { Answer } from "../models/answer.model";
 import { Response } from "express";
 import { RequestWithUser } from "../interfaces/requests/RequestWithUser";
 

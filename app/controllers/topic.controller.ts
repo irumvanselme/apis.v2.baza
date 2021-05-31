@@ -1,4 +1,4 @@
-import { Topic, validate } from "../models/topic.model.js";
+import { Topic, validate } from "../models/topic.model";
 import { Request, Response } from "express";
 
 class TopicController {

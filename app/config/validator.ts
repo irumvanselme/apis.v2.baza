@@ -1,5 +1,5 @@
 import { model, Types } from "mongoose";
-import * as Validator from "validatorjs";
+import Validator from "validatorjs";
 
 Validator.registerAsync(
     "unique",

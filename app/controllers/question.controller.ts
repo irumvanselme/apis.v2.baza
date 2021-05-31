@@ -1,4 +1,4 @@
-import {Question, validate} from "../models/question.model.js";
+import {Question, validate} from "../models/question.model";
 import { Request, Response } from "express";
 import { RequestWithUser } from "../interfaces/requests/RequestWithUser";
 

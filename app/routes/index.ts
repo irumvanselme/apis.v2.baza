@@ -1,5 +1,5 @@
-import {Router} from "express";
-import topic_routes from "./topic.routes.js";
+import { Router } from "express";
+import topic_routes from "./topic.routes";
 import question_routes from "./question.routes";
 import answers_routes from "./answers.routes";
 import comments_routes from "./comments.routes";
